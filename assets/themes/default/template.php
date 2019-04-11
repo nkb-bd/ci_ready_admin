@@ -32,7 +32,7 @@
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand " href="<?=base_url()?>">
-           <!-- <img src="<?=base_url()?><?=$this->settings->logo1?>" width="40px" alt=""> -->
+           <img src="<?=base_url()?><?=$this->settings->logo1?>" width="40px" alt="">
 
            <?=str_replace("|"," ",$this->settings->site_name);?>
         </a>
