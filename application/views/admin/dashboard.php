@@ -4,7 +4,8 @@
    <div class="col-sm-12">
       <div class="card text-white card-info">
          <div class="card-header">
-            Welcome to dashboard
+            Welcome to dashboard;
+            lang :<?php echo  $this->session->language ; ?>
          </div>
         
       </div>
@@ -85,7 +86,7 @@
    <!--login history -->
    <!-- login history -->
    <div class="col-xl-4 col-md-12">
-      <div class="card latest-update-card" style="min-height:260px; overflow: auto">
+      <div class="card latest-update-card" style="min-height:260px ;max-height: 260px;  overflow: auto">
          <div class="card-header">
             <h5>Failed Login Attempsts </h5>
             <div class="card-header-right">
@@ -109,7 +110,7 @@
                   ?>
                <div class="row p-t-20 p-b-30">
                   <div class="col-auto text-right update-meta p-r-0">
-                     <i class="feather icon-zap f-w-600 bg-c-blue update-icon"></i>
+                     <i class="feather icon-alert-circle f-w-600 bg-c-red update-icon"></i>
                   </div>
                   <div class="col p-l-5">
                      <h6>

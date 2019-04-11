@@ -28,7 +28,7 @@ class Welcome extends Public_Controller {
 
 
         
-
+         $data = $this->includes;
 
 
 

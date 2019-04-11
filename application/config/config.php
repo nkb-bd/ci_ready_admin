@@ -455,7 +455,9 @@ $config['csrf_token_name'] = 'csrf_name_nkb';
 $config['csrf_cookie_name'] = 'csrf_cookie_nkb';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array(
+	 'ajax/[a-z_]+'
+);
 
 /*
 |--------------------------------------------------------------------------

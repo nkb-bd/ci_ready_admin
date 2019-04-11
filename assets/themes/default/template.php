@@ -32,7 +32,7 @@
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand " href="<?=base_url()?>">
-           <img src="<?=base_url()?><?=$this->settings->logo1?>" width="40px" alt="">
+           <!-- <img src="<?=base_url()?><?=$this->settings->logo1?>" width="40px" alt=""> -->
 
            <?=str_replace("|"," ",$this->settings->site_name);?>
         </a>
@@ -79,8 +79,11 @@
             </div>
           </li>
 
+
             
           <?php endif ?>
+
+
     
 
 
@@ -104,7 +107,8 @@
 
                   <li class="nav-item ">
                     <a href="<?=base_url()?>login" class="nav-link" >
-                      <i class="fa fa-sign-in"></i> Login
+                      <i class="fa fa-sign-in"></i>
+                      <?php echo lang('core button login'); ?>
                     </a>
                   </li>
 
@@ -140,6 +144,27 @@
               <i class="fa fa-instagram"></i>
             </a>
           </li>
+
+                  <li class="nav-item ">
+                        <span class="dropdown">
+                            <button id="session-language" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-default">
+                                <i class="fa fa-language"></i>
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="session-language-dropdown" class="dropdown-menu" role="menu" aria-labelledby="session-language">
+                                <?php foreach ($this->languages as $key=>$name) : ?>
+                                    <li>
+                                        <a href="#" rel="<?php echo $key; ?>">
+                                            <?php if ($key == $this->session->language) : ?>
+                                                <i class="fa fa-check selected-session-language"></i>
+                                            <?php endif; ?>
+                                            <?php echo $name; ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </span>
+                    </li>
 
           <?php endif ?>   
 
@@ -196,6 +221,15 @@
     </div>
   </footer>
   <!--   Core JS Files   -->
+  <script type="text/javascript">
+    /**
+   * Configurations
+   */
+  var config = {
+      logging : true,
+      baseURL : "<?php echo base_url() ?>"
+  };
+  </script>
   <script src="<?php echo base_url("/{$this->settings->themes_folder}/{$this->settings->theme}/")?>js/core/popper.min.js" type="text/javascript"></script>
   <script src="<?php echo base_url("/{$this->settings->themes_folder}/{$this->settings->theme}/")?>js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
   <script src="<?php echo base_url("/{$this->settings->themes_folder}/{$this->settings->theme}/")?>js/plugins/moment.min.js"></script>
@@ -212,6 +246,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!--  Plugin for Sharrre btn -->
   <script src="<?php echo base_url("/{$this->settings->themes_folder}/{$this->settings->theme}/")?>js/plugins/jquery.sharrre.js" type="text/javascript"></script>
+  <script src="<?php echo base_url("/{$this->settings->themes_folder}/{$this->settings->theme}/")?>js/core.js" type="text/javascript"></script>
   <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
   <script>
     $(document).ready(function() {
