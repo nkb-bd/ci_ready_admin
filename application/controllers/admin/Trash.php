@@ -19,7 +19,7 @@ class Trash extends Admin_Controller {
          $this->lang->load('users');
 
         // load the trash model
-        $this->load->model('slider_model');
+        // $this->load->model('slider_model');
         $this->load->model('common_model');
 
         // set constants
@@ -69,7 +69,7 @@ class Trash extends Admin_Controller {
 
         	$tbl_selected=  $_SESSION['last_tbl'];
         }else{
-            $tbl_selected='gallery';
+            $tbl_selected='settings';
         }
 
 
