@@ -311,6 +311,13 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 			{
 				return $this->_fail();
 			}
+
+			$CI =& get_instance();
+			// custom make it offline when auto logout happens
+			$CI->db->set('online', 0);
+			$CI->db->where('ip_address',  $_SERVER['REMOTE_ADDR']);
+			$CI->db->update('users');
+
 		}
 
 		if ($this->close() === $this->_success)

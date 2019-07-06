@@ -70,15 +70,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+if (SITE_LIVE)
+{
+    //Live site database settings.
+    $active_group = "default";
+}
+else 
+{
+    $active_group = "offline";
+}
+
+
 $query_builder = TRUE;
 
-$db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
+$db['offline'] = array(
+
+	
+	// 	'username' => 'gmstech_lgs_2019',
+	// 'password' => 'gmstech_lgs_2019db',
+	// 'database' => 'gmstech_lgs_2019',
 	'username' => 'root',
 	'password' => '',
 	'database' => 'ci_ready_admin',
+	'dsn'	=> '',
+	'hostname' => 'localhost',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -94,3 +109,33 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+
+$db['default'] = array(
+
+	
+	'username' => '',
+	'password' => '',
+	'database' => '',
+	// 'username' => 'root',
+	// 'password' => '',
+	// 'database' => 'ci_lgs',
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+

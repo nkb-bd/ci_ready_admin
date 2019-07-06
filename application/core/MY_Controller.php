@@ -34,7 +34,8 @@ class MY_Controller extends CI_Controller {
             $this->settings->{$setting['name']} = (@unserialize($setting['value']) !== FALSE) ? unserialize($setting['value']) : $setting['value'];
         }
         $this->settings->site_version   = $this->config->item('site_version');
-        $this->settings->themes_folder  = $this->config->item('themes_folder');
+        // $this->settings->themes_folder  = $this->config->item('themes_folder');
+        $this->settings->themes_folder  = 'assets/themes';
         $this->settings->captcha_folder = $this->config->item('captcha_folder');
 
         // get current uri
@@ -49,6 +50,8 @@ class MY_Controller extends CI_Controller {
 
         // get current user
         $this->user = $this->session->userdata('logged_in');
+
+       
 
         // get languages
         $this->languages = get_languages();
@@ -83,23 +86,17 @@ class MY_Controller extends CI_Controller {
         $this
             ->add_external_css(
                 array(
-                    "",
-                    "",
-                    "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
                 ))
 
             ->add_external_js(
                 array(
-                    "",
                     ""
                 ));
 
-        $core_js = $this->jsi18n->translate("/{$this->settings->themes_folder}/core/js/core_i18n.js");
-        $core_js = str_replace("<<base_url>>", base_url(), $core_js);
 
-        $this->includes['js_files_i18n'] = array(
-            $core_js
-        );
+  
+
+         
 
         // enable the profiler?
         $this->output->enable_profiler($this->config->item('profiler'));
@@ -430,7 +427,7 @@ class MY_Controller extends CI_Controller {
      * sometime, we want to use different template for different page
      * for example, 404 template, login template, full-width template, sidebar template, etc.
      * so, use this function
-     * --------------------------------------
+     * ----------------p----------------------
      * @author  Arif Rahman Hakim
      * @since   Version 3.1.0
      * @access  public
@@ -472,31 +469,24 @@ class Public_Controller extends MY_Controller {
 
         // set up global header data
         $this
-            ->add_css_theme("{$this->settings->theme}.css")
-            ->add_js_theme("{$this->settings->theme}_i18n.js", TRUE);
+            ->add_css_theme("public.css");
+            // ->add_js_theme("{$this->settings->theme}_i18n.js", TRUE);
 
-        $this->load->model('common_model');
+     
 
-        if ($this->db->table_exists('pages') )
-        {
-            $this->dynamic_pages = $this->common_model->get_dynamic_page_menu();
-            $this->includes['dynamic_pages'] = $this->dynamic_pages;
-        }
-        else
-        {
-          // table does not exist
-        }
-       
 
-        // declare main template
-        $this->template = "../../{$this->settings->themes_folder}/{$this->settings->theme}/template.php";
+        // declare public template
+        $this->template = "../../assets/themes/public/template.php";
         
     }
 
 
 }
+
+// public controoler start
+
  
-// public controoler end
+
 
 // private registered user controller start
 
@@ -522,17 +512,23 @@ class Private_Controller extends MY_Controller {
 
             redirect('login');
         }
+        $this->load->library('permission');
+        $this->permissions = $this->permission->get_user_permissions($this->user['user_type']);
+        
+        //  // get permissions and show error if they don't have any permissions at all
+        // if (!$this->permissions = $this->permission->get_user_permissions($this->user['user_type'])||)
+        // {   
 
+        //     $this->session->set_flashdata('error', 'You do not have any permissions');
+        //     redirect('login');
+        // }
         // prepare theme name
         $this->settings->theme = strtolower($this->config->item('public_theme'));
 
-        // set up global header data
-        $this
-            ->add_css_theme("{$this->settings->theme}.css")
-            ->add_js_theme("{$this->settings->theme}_i18n.js", TRUE);
 
-        // declare main template
-        $this->template = "../../{$this->settings->themes_folder}/{$this->settings->theme}/template.php";
+
+        // declare logged in user template
+        $this->template = "../../assets/themes/default/dashboard.php";
     }
 
 }
@@ -565,23 +561,17 @@ class Admin_Controller extends MY_Controller {
             redirect('login');
         }
 
-        // make sure this user is setup as admin
-        if ( ! $this->user['is_admin'])
-        {
-            redirect(base_url());
-        }
-
+        
         // load the admin language file
         $this->lang->load('admin');
+        $this->load->library('permission');
 
         // prepare theme name
         $this->settings->theme = strtolower($this->config->item('admin_theme'));
 
         // set up global header data
-        // $this
-        //     ->add_css_theme("{$this->settings->theme}.css, summernote-bs3.css")
+        // $this->add_css_theme("{$this->settings->theme}.css, summernote-bs3.css")
         //     ->add_js_theme("summernote.min.js,selectize.min.js" )
-        //     ->add_js_theme("{$this->settings->theme}_i18n.js", TRUE);    
            
          // 
          $this->add_css_theme(array("font-awesome-n.min.css",
@@ -589,9 +579,21 @@ class Admin_Controller extends MY_Controller {
                                     "widget.css",
                                     ));
 
-            $this->add_js_theme(array("my-js.js"));
-        // declare main template
-        $this->template = "../../{$this->settings->themes_folder}/{$this->settings->theme}/template.php";
+        $this->add_js_theme(array("my-js.js"));
+
+        // declare admin template
+        $this->template = "../../assets/themes/admin/template.php";
+
+        // get permissions and show error if they don't have any permissions at all
+        if (!$this->permissions = $this->permission->get_user_permissions($this->user['user_type']))
+        {   
+
+            $this->session->set_flashdata('error', 'You do not have any permissions');
+            redirect('login');
+        }
+
+       
+
     }
 
 }

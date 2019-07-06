@@ -1,74 +1,92 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 
 
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 col-md-4 col-sm-6 col-xs-12 ">
 
-<div class="page-header header-filter" style="background-image: url('https://source.unsplash.com/featured/?digital'); background-size: cover; background-position: top center;">
-      
+                  
 
-         <?php if ($this->settings->template!='default'): ?>
-     <?php  //fix ingstyle ?> <!--  -->
-          
-          <style>
-            .fix-login{
-              min-height: 40vh;
-              margin-top: 200px;
-            }
-          </style>
-      <?php endif ?>
+                  <?php echo form_open('', 'class="login100-form validate-form"'); ?>
 
-    <div class="container">
-      <div class="row">
 
-        <div class="col-lg-4 col-md-6 ml-auto mr-auto  fix-login">
-          <div class="card card-login">
-                <?php echo form_open('', array('class'=>'form', 'autocomplete'=>"off")); ?>
-              <div class="card-header  animated fadeInDown card-header-info text-center">
-                <h4 class="card-title">Login</h4>
-                <div class="social-line">
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-facebook-square"></i>
-                  </a>
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-twitter"></i>
-                  </a>
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-google-plus"></i>
-                  </a>
+                <div class="text-center js-tilt" data-tilt>
+                  <h1><?=$this->settings->site_name?></h1>
                 </div>
-              </div>
-              
-              <!-- <p class="description text-center">Or Be Classical</p> -->
-              <div class="card-body">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    
-                  </div>
-                  <input type="text" name="username" class="form-control" placeholder="User Name /Email" onfocus="this.removeAttribute('readonly');" readonly>
-                </div>
-              <br>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    
-                  </div>
-                  <input type="password" name="password"   class="form-control" placeholder="Password..." onfocus="this.removeAttribute('readonly');" readonly>
-                </div>
-              </div>
-              <div class="footer text-center">
-                <button class="btn btn-success  btn-custom  btn-lg">Get Started</button>
-              </div>
 
-               <!-- fo forget pass -->
-                <!-- <p class="text-center"><br /><a class="btn btn-link" href="<?php echo base_url('user/forgot'); ?>"><?php echo lang('users link forgot_password'); ?></a></p> -->
-                <!-- <p  class="text-center"><a class=" btn-link btn-block"  href="<?php echo base_url('user/register'); ?>"><?php echo lang('users link register_account'); ?></a></p> -->
-            <?php echo form_close(); ?>
-          </div>
+                    <div class="">
+
+
+                      
+                              <!-- system msg -->
+                                  <?php // System messages ?>
+                                  <?php if ($this->session->flashdata('message')) : ?>
+                                      <div class="alert alert-success alert-dismissable text-center">
+                                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                          <?php echo $this->session->flashdata('message'); ?>
+                                      </div>
+                                  <?php elseif ($this->session->flashdata('error')) : ?>
+                                      <div class="alert animated shake alert-danger text-center alert-dismissable">
+                                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                          <?php echo $this->session->flashdata('error'); ?>
+                                      </div>
+                                  <?php elseif (validation_errors()) : ?>
+                                      <div class="alert animated shake  text-center alert-danger alert-dismissable">
+                                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                          <?php echo validation_errors(); ?>
+                                      </div>
+                                  <?php elseif ($this->error) : ?>
+                                      <div class="alert  animated shake text-center alert-danger alert-dismissable">
+                                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                          <?php echo $this->error; ?>
+                                      </div>
+                                  <?php endif; ?>
+                    </div>
+                            <span class="login100-form-title">
+                               Login
+                            </span>
+
+                            <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                              <input class="input100" type="text" name="username" placeholder="Email">
+                              <span class="focus-input100"></span>
+                              <span class="symbol-input100">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                              </span>
+                            </div>
+
+                            <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                              <input class="input100" type="password" name="password" placeholder="Password">
+                              <span class="focus-input100"></span>
+                              <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                              </span>
+                            </div>
+                            
+                            <div class="container-login100-form-btn">
+                              <button class="login100-form-btn">
+                                Login
+                              </button>
+                            </div>
+
+                            <div class="text-center p-t-12">
+                              <span class="txt1">
+                                Forgot
+                              </span>
+                              <a class="txt2" href="<?php echo base_url('user/forgot'); ?>">
+                                Username / Password?
+                              </a>
+                            </div>
+
+                            <div class="text-center p-t-12">
+                             
+                              <a class="btn btn-primary " href="<?php echo base_url(''); ?>">
+                               Back to  Home 
+                              </a>
+                            </div>
+
+                            
+                          </form>
+
+                    </div>
         </div>
-      </div>
     </div>
-
-     <br>
-        <br>
-        <br>
-</div>
-

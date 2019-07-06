@@ -11,6 +11,8 @@ class Settings extends Admin_Controller {
 
         // load the language files
         $this->lang->load('settings');
+
+      
     }
 
 
@@ -18,10 +20,19 @@ class Settings extends Admin_Controller {
      * Settings Editor
      */
     function index()
-    {
+    {      
+
+      // check permissions
+        if (!in_array('settings_view', $this->permissions)){
+
+
+            $this->session->set_flashdata('error', 'Permission denied !');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
         // get settings
         $settings = $this->settings_model->get_settings();
 
+          $this->set_page_header('Settings');
 
         $result = array();
         foreach ($settings as $element) {
@@ -87,6 +98,15 @@ class Settings extends Admin_Controller {
 
                 
             }
+
+            // check permissions
+            if (!in_array('settings_update', $this->permissions)){
+
+
+                $this->session->set_flashdata('error', 'Permission denied !');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+
             // save the settings
             $saved = $this->settings_model->save_settings($this->input->post(), $user['id']);
 
