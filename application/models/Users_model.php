@@ -33,8 +33,9 @@ class Users_model extends CI_Model {
     function get_all($limit=0, $offset=0, $filters=array(), $sort='last_name', $dir='ASC')
     {
         $sql = "
-            SELECT SQL_CALC_FOUND_ROWS *
+            SELECT SQL_CALC_FOUND_ROWS users.id id,first_name,last_name,username,groupName,created,deleted,email,status,profile_img,user_type
             FROM {$this->_db}
+            JOIN permission_groups on permission_groups.id = users.user_type
             WHERE deleted = '0'
         ";
 
@@ -181,11 +182,13 @@ class Users_model extends CI_Model {
                     first_name,
                     last_name,
                     email,
+                    mobile,
                     language,
                     is_admin,
                     status,
                     deleted,
                     validation_code,
+                    user_type,
                     created,
                     updated
                 ) VALUES (
@@ -195,11 +198,13 @@ class Users_model extends CI_Model {
                     " . $this->db->escape($data['first_name']) . ",
                     " . $this->db->escape($data['last_name']) . ",
                     " . $this->db->escape($data['email']) . ",
+                    " . $this->db->escape($data['mobile']) . ",
                     " . $this->db->escape($data['language']) . ",
-                    '0',
+                    " . $this->db->escape($data['is_admin']) . ",
                     '0',
                     '0',
                     " . $this->db->escape($validation_code) . ",
+                    " . $this->db->escape($data['user_type']) . ",
                     '" . date('Y-m-d H:i:s') . "',
                     '" . date('Y-m-d H:i:s') . "'
                 )
@@ -260,6 +265,8 @@ class Users_model extends CI_Model {
                     language = " . $this->db->escape($data['language']) . ",
                     is_admin = " . $this->db->escape($data['is_admin']) . ",
                     status = " . $this->db->escape($data['status']) . ",
+                    mobile = " . $this->db->escape($data['mobile']) . ",
+                    user_type = " . $this->db->escape($data['user_type']) . ",
                     updated = '" . date('Y-m-d H:i:s') . "'
                 WHERE id = " . $this->db->escape($data['id']) . "
                     AND deleted = '0'
@@ -381,11 +388,16 @@ class Users_model extends CI_Model {
                     first_name,
                     last_name,
                     email,
+                    user_type,
+                    profile_img,
                     language,
                     is_admin,
+                    
                     status,
                     created,
-                    updated
+                    updated,
+                    ip_address
+                    
                 FROM {$this->_db}
                 WHERE (username = " . $this->db->escape($username) . "
                         OR email = " . $this->db->escape($username) . ")

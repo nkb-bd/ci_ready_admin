@@ -57,12 +57,50 @@ $route['translate_uri_dashes'] = TRUE;
 
 $route['login']                = 'user/login';
 $route['logout']               = 'user/logout';
-$route['admin']                = 'admin/dashboard';
+$route['dashboard']                = 'admin/dashboard';
 $route['components'] = 'welcome/components';
 $route['sitemap\.xml']         = 'sitemap';
 
-// public dynacmic page
 
-$route['pages/(:any)']                = 'welcome/pages/$1';
-$route['blog/(:any)']                = 'welcome/blogs/$1';
+// user
+$route['register'] = 'user/register/';
 
+
+// stripe test
+$route['my-stripe'] = "StripeController";
+$route['stripePost']['post'] = "StripeController/stripePost";
+
+// mailchimp
+$route['mailchimp']['post'] = "welcome/mailchimp";
+
+// mailchimp
+// buyer
+
+$route['buyer/my_leads'] = "buyer/projects/project_posted_by_buyer";
+
+
+// public
+// stripe recharge
+$route['stripe'] = "stripeController";
+$route['stripe/remove_card'] = "stripeController/remove_card";
+$route['select_payment'] = "payment/select_payment";
+
+
+// common
+$route['category'] = "welcome/all_category";
+$route['category/(:any)'] = "welcome/category_single_view/$1";
+$route['sub_category/(:any)/(:any)'] = "welcome/sub_category_single_view/$1/$2";
+$route['browse_jobs'] = "welcome/browse_jobs";
+$route['search'] = "welcome/search/";
+$route['lead/view/(:any)'] = "projects/view_job/$1";
+$route['lead/lead_buy/(:any)/(:any)'] = "projects/buy_lead/$1/$2";
+
+// static page
+$route['how_it_works'] = "welcome/how_it_works";
+$route['about_us']     = "welcome/about_us";
+$route['terms']         = "welcome/terms";
+
+
+
+// error page
+$route['404_override'] = 'welcome/error_page';

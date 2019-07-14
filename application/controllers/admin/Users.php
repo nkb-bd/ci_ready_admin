@@ -50,7 +50,17 @@ class Users extends Admin_Controller {
      * User list page
      */
     function index()
-    {
+    {    
+
+
+        // check permissions
+        if (!in_array('user_view', $this->permissions)){
+
+
+            $this->session->set_flashdata('error', 'Permission denied !');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+
         // get parameters
         $limit  = $this->input->get('limit')  ? $this->input->get('limit', TRUE)  : DEFAULT_LIMIT;
         $offset = $this->input->get('offset') ? $this->input->get('offset', TRUE) : DEFAULT_OFFSET;
@@ -121,6 +131,8 @@ class Users extends Admin_Controller {
         // get list
         $users = $this->users_model->get_all($limit, $offset, $filters, $sort, $dir);
 
+
+
         // build pagination
         $this->pagination->initialize(array(
             'base_url'   => THIS_URL . "?sort={$sort}&dir={$dir}&limit={$limit}{$filter}",
@@ -135,6 +147,10 @@ class Users extends Admin_Controller {
 
         $data = $this->includes;
 
+        // user role data
+        $user_role = $this->db->get('permission_groups'); 
+
+
         // set content data
         $content_data = array(
             'this_url'   => THIS_URL,
@@ -146,7 +162,8 @@ class Users extends Admin_Controller {
             'limit'      => $limit,
             'offset'     => $offset,
             'sort'       => $sort,
-            'dir'        => $dir
+            'dir'        => $dir,
+            'user_role' => $user_role->result_array()
         );
 
         // load views
@@ -159,7 +176,17 @@ class Users extends Admin_Controller {
      * Add new user
      */
     function add()
-    {
+    {    
+
+
+
+        // check permissions
+        if (!in_array('user_create', $this->permissions)){
+
+
+            $this->session->set_flashdata('error', 'Permission denied !');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
         // validators
         $this->form_validation->set_error_delimiters($this->config->item('error_delimeter_left'), $this->config->item('error_delimeter_right'));
         $this->form_validation->set_rules('username', lang('users input username'), 'required|trim|min_length[5]|max_length[30]|callback__check_username[]');
@@ -168,7 +195,7 @@ class Users extends Admin_Controller {
         $this->form_validation->set_rules('email', lang('users input email'), 'required|trim|max_length[128]|valid_email|callback__check_email[]');
         // $this->form_validation->set_rules('language', lang('users input language'), 'trim');
         $this->form_validation->set_rules('status', lang('users input status'), 'required|numeric');
-        $this->form_validation->set_rules('is_admin', lang('users input is_admin'), 'required|numeric');
+        $this->form_validation->set_rules('is_admin', lang('users input is_admin'), 'numeric');
         $this->form_validation->set_rules('password', lang('users input password'), 'required|trim|min_length[5]');
         $this->form_validation->set_rules('password_repeat', lang('users input password_repeat'), 'required|trim|matches[password]');
 
@@ -195,11 +222,16 @@ class Users extends Admin_Controller {
 
         $data = $this->includes;
 
+        // get all user role
+
+        $all_role = $this->get_all_role();
+
         // set content data
         $content_data = array(
             'cancel_url'        => $this->_redirect_url,
             'user'              => NULL,
-            'password_required' => TRUE
+            'password_required' => TRUE,
+            'all_role'          => $all_role,
         );
 
         // load views
@@ -214,7 +246,20 @@ class Users extends Admin_Controller {
      * @param  int $id
      */
     function edit($id=NULL)
-    {
+    {    
+
+
+        // check permissions
+        if (!in_array('user_update', $this->permissions)){
+
+
+            $this->session->set_flashdata('error', 'Permission denied !');
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        // get all user roll
+
+
         // make sure we have a numeric id
         if (is_null($id) OR ! is_numeric($id))
         {       
@@ -230,14 +275,14 @@ class Users extends Admin_Controller {
     
         if ( $this->session->logged_in['id']!=(int)$user['id'] ){
 
-            if($this->session->logged_in['id']!=1){
-                $this->session->set_flashdata('error', 'You dont have permission !');
-                redirect($this->_redirect_url);
+            if($this->session->logged_in['user_type']!=1){
+                $this->session->set_flashdata('error', 'Invalid URL  !');
+                redirect('admin/users/edit/'.$this->session->logged_in['id']);
             }
            
 
         }
-    // 
+        // 
         // if empty results, return to list
         if ( ! $user)
         {
@@ -251,15 +296,21 @@ class Users extends Admin_Controller {
         $this->form_validation->set_rules('last_name', lang('users input last_name'), 'required|trim|min_length[2]|max_length[32]');
         $this->form_validation->set_rules('email', lang('users input email'), 'required|trim|max_length[128]|valid_email|callback__check_email[' . $user['email'] . ']');
         // $this->form_validation->set_rules('language', lang('users input language'), 'required|trim');
-        $this->form_validation->set_rules('status', lang('users input status'), 'required|numeric');
-        $this->form_validation->set_rules('is_admin', lang('users input is_admin'), 'required|numeric');
+        $this->form_validation->set_rules('status', lang('users input status'), 'numeric');
+        $this->form_validation->set_rules('is_admin', lang('users input is_admin'), 'numeric');
         $this->form_validation->set_rules('password', lang('users input password'), 'min_length[5]|matches[password_repeat]');
         $this->form_validation->set_rules('password_repeat', lang('users input password_repeat'), 'matches[password]');
         $this->form_validation->set_rules('profile_img', lang('users input '), '');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'trim|max_length[15]|min_length[11]');
 
         if ($this->form_validation->run() == TRUE)
         {
-            
+
+      
+         $_POST['is_admin']='1';
+      
+
+               
         $files = $_FILES;
         $file_name= $this->input->post('username');
         $postData= $this->input->post();
@@ -295,7 +346,7 @@ class Users extends Admin_Controller {
             }
 
             // return to list and display message
-            redirect($this->_redirect_url);
+           redirect('admin/users/edit/'.$this->session->logged_in['id']);
         }
 
         // setup page header data
@@ -303,12 +354,16 @@ class Users extends Admin_Controller {
 
         $data = $this->includes;
 
+        $all_role = $this->get_all_role();
+
+        
         // set content data
         $content_data = array(
             'cancel_url'        => $this->_redirect_url,
-            'user'              => $user,
-            'user_id'           => $id,
-            'password_required' => FALSE
+             'user'              => $user,
+             'user_id'           => $id,
+             'password_required' => FALSE,
+             'all_role'          => $all_role,
         );
 
         // load views
@@ -358,6 +413,20 @@ class Users extends Admin_Controller {
         redirect($this->_redirect_url);
     }
 
+    function get_all_role(){
+
+            $this->db->select('*');
+            $this->db->from('permission_groups');        
+            $query = $this->db->get();
+
+            if ($query->num_rows() >= 1){ 
+                return $query->result_array(); 
+            }
+
+
+
+            return false;
+    }
 
     /**
      * Export list to CSV
@@ -473,12 +542,11 @@ class Users extends Admin_Controller {
   // /img upload //
   /////////////////
   private function _do_upload($file,$file_name,$id){
-    echo "<pre>";
-    // echo "string";
-    echo $file;
-    // echo $file_name;
-    echo $id;
-    $config['upload_path']   = './files/profile/';
+   
+    if (!file_exists('/uploads/profile/')) {
+        mkdir('/uploads/profile/', 0777, true);
+    }
+    $config['upload_path']   = './uploads/profile/';
     $config['allowed_types'] = 'gif|jpg|png';
     $config['overwrite']      = true;
     $config['max_size']      = 30000;
@@ -490,9 +558,9 @@ class Users extends Admin_Controller {
      if (!$this->upload->do_upload($file_name)){
 
         $data = array('error' => $this->upload->display_errors());
-        print_r($data);exit;
+       
 
-          $this->session->set_flashdata('notification_msg', 'Eror try Again!');
+          $this->session->set_flashdata('notification_msg', $data);
           $this->session->set_flashdata('notification_type', 'danger');
           $this->session->set_flashdata('notification_icon', 'fa fa-user');
 

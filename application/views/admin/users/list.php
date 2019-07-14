@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="panel panel-default card card-body">
+
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-6 text-left">
@@ -38,7 +39,7 @@
                     <?php if ($sort == 'status') : ?><span class="fa fa-toggle-<?php echo (($dir == 'asc') ? 'up' : 'down'); ?>"></span><?php endif; ?>
                 </td>
                 <td>
-                    <a href="<?php echo current_url(); ?>?sort=is_admin&dir=<?php echo (($dir == 'asc' ) ? 'desc' : 'asc'); ?>&limit=<?php echo $limit; ?>&offset=<?php echo $offset; ?><?php echo $filter; ?>"><?php echo lang('users col is_admin'); ?></a>
+                    <a href="<?php echo current_url(); ?>?sort=is_admin&dir=<?php echo (($dir == 'asc' ) ? 'desc' : 'asc'); ?>&limit=<?php echo $limit; ?>&offset=<?php echo $offset; ?><?php echo $filter; ?>">Role</a>
                     <?php if ($sort == 'is_admin') : ?><span class="fa fa-toggle-<?php echo (($dir == 'asc') ? 'up' : 'down'); ?>"></span><?php endif; ?>
                 </td>
                 <td class="pull-right">
@@ -62,7 +63,9 @@
                     </th>
                     <th colspan="3">
                         <div class="text-right">
-                            <a href="<?php echo $this_url; ?>" class="btn btn-danger btn-sm tooltips" data-toggle="tooltip" title="<?php echo lang('admin tooltip filter_reset'); ?>"><span class="fa fa-refresh"></span> <?php echo lang('core button reset'); ?></a>
+                            <a href="<?php echo $this_url; ?>" class="btn btn-default btn-sm tooltips" data-toggle="tooltip" title="Reset"><span class="fa fa-refresh"></span> Reset </a>
+
+
                             <button type="submit" name="submit" value="<?php echo lang('core button filter'); ?>" class="btn btn-primary btn-sm tooltips" data-toggle="tooltip" title="<?php echo lang('admin tooltip filter'); ?>"><span class="fa fa-filter"></span> <?php echo lang('core button filter'); ?></button>
                         </div>
                     </th>
@@ -89,23 +92,38 @@
                             <?php echo $user['last_name']; ?>
                         </td>
                         <td<?php echo (($sort == 'status') ? ' class="sorted"' : ''); ?>>
-                            <?php echo ($user['status']) ? '<span class="active">' . lang('admin input active') . '</span>' : '<span class="inactive">' . lang('admin input inactive') . '</span>'; ?>
+                            <?php echo ($user['status']) ? '<span class="label active bg-green">' .'Active' . '</span>' : '<span class="label inactive bg-red">' .'Inactive' . '</span>'; ?>
                         </td>
-                        <td<?php echo (($sort == 'is_admin') ? ' class="sorted"' : ''); ?>>
-                            <?php echo ($user['is_admin']) ? lang('core text yes') : lang('core text no'); ?>
+
+                        <td>    
+                                 <?php echo  $user['groupName']; ?>
                         </td>
+                       
                         <td>
                             <div class="text-right">
                                 <div class="btn-group">
                                    
                                     <?php if (($user['id'] > 1) &&( $this->session->logged_in['id'])==1) :?>
-                                        <a href="#modal-<?php echo $user['id']; ?>" data-toggle="modal" class="btn btn-danger btn-xs" title="<?php echo lang('admin button delete'); ?>"><span class="fa fa-trash"></span></a>
+                                        
+                                        <?php  if (in_array('user_delete', $this->permissions)){ ?>
+
+                                            <a href="#modal-<?php echo $user['id']; ?>" data-toggle="modal" class="btn btn-danger btn-xs" title="Delete">
+                                                Delete <span class="fa fa-trash"></span></a>
+
+                                        <?php   } ?>
+
                                     <?php endif; ?>
 
-                                    <?php if (( $this->session->logged_in['id']==$user['id'])|| ($this->session->logged_in['id']==1)) :?>
-                                         <a href="<?php echo $this_url; ?>/edit/<?php echo $user['id']; ?>" class="btn btn-warning btn-xs" title="<?php echo lang('admin button edit'); ?>"><span class="fa fa-edit"> </span></a>
 
-                                    <?php endif; ?>
+                                        <?php if (( $this->user['id']==$user['id'])|| in_array('user_update', $this->permissions)) :?>
+                                            
+                                            <a href="<?php echo $this_url; ?>/edit/<?php echo $user['id']; ?>" class="btn btn-primary btn-xs" title="Edit">
+                                                Edit <span class="fa fa-edit"> </span>
+                                                       
+                                            </a>
+
+
+                                        <?php endif; ?>
                                 </div>
                             </div>
                         </td>

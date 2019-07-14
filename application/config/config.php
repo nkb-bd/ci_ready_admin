@@ -225,7 +225,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -380,10 +380,10 @@ $config['encryption_key'] = '';
 |
 */
 $config['sess_driver'] = 'database';
-$config['sess_cookie_name'] = 'ci_session';
+$config['sess_cookie_name'] = 'ci_session_project_mananger';
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = 'ci_sessions';
-$config['sess_match_ip'] = FALSE;
+$config['sess_match_ip'] = TRUE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = TRUE;
 
@@ -408,6 +408,8 @@ $config['cookie_path']		= '/';
 $config['cookie_secure']	= FALSE;
 $config['cookie_httponly'] 	= FALSE;
 
+
+$active_group = 'test';
 /*
 |--------------------------------------------------------------------------
 | Standardize newlines
@@ -451,12 +453,15 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
 $config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = 'csrf_name_nkb';
-$config['csrf_cookie_name'] = 'csrf_cookie_nkb';
+$config['csrf_token_name'] = 'csrf_name_pm';
+$config['csrf_cookie_name'] = 'csrf_cookie_pm';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
 $config['csrf_exclude_uris'] = array(
-	 'ajax/[a-z_]+'
+	 'ajax/[a-z_]+',
+	 'chat/new_msg',
+	 'mailchimp',
+	 'projects/near_me'
 );
 
 /*
@@ -492,8 +497,8 @@ $config['compress_output'] = FALSE;
 | helper' page of the user guide for information regarding date handling.
 |
 */
+// date_default_timezone_set('Asia/Dhaka');
 $config['time_reference'] = 'local';
-date_default_timezone_set('Asia/Dhaka');
 /*
 |--------------------------------------------------------------------------
 | Rewrite PHP Short Tags
@@ -525,3 +530,48 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+
+// stripe
+
+$config['stripe_key']    = 'pk_test_MOOWpi048bE7q8es98c9MTzQ00JWXtkoHF';
+
+$config['stripe_secret'] = 'sk_test_Lsop3zIRXoPtjIdzOeJFk11U00b5Q0Ue6q';
+
+
+
+// email config
+
+
+if (SITE_LIVE)
+{
+   
+	$config['email_smtp_host'] = 'ssl://mail.gmxtech.uk';
+	$config['email_port']      = 465;
+	$config['email_user']      = 'gmsdev@gmxtech.uk';
+	$config['email_pass']      = 'f*{aZEhdM3V9';
+
+}
+else 
+{
+	$active_group              = "offline";
+	$config['email_smtp_host'] = 'ssl://smtp.googlemail.com';
+	$config['email_port']      = 465;
+	$config['email_user']      = 'nakib.un@gmail.com';
+	$config['email_pass']      = 'jallarpar47';
+}
+
+
+// one at a time
+$config['paypal'] = false;
+$config['stripe'] = true;
+// $config['stripe'] = ($config['paypal'])?false:true;
+
+// mailchimp config
+
+$config['mailchimp_list_id'] = 'e0bf613911';
+$config['mailchimp_api_key'] = '57e2db5e5995e68b93db5c19fb456632-us20';
+
+// google map
+$config['gmap_api_key'] = 'AIzaSyAgtdpYUlacT_ST0_DkfCnGUzucMpKnXfI';
+

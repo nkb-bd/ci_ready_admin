@@ -11,10 +11,16 @@ class User extends Public_Controller {
 
         // load the users model
         $this->load->model('users_model');
-        $this->load->model('common_model');
+        // $this->load->model('common_model');
 
         // load the users language file
         $this->lang->load('users');
+
+
+
+        $this->template = "../../assets/themes/login/template.php";
+        
+           
     }
 
 
@@ -28,38 +34,26 @@ class User extends Public_Controller {
      */
     function index() {}
 
-
+        
     /**
      * Validate login credentials
      */
     function login()
     {
 
-
-
-        $site_data = $this->common_model->get_all('settings');
-        $site_info =  array() ;
-        foreach ($site_data['results'] as $data) {
-
-            $site_info[$data['name']] = $data['value'];
-        }
-        if ($this->session->userdata('logged_in'))
-        {
-            $logged_in_user = $this->session->userdata('logged_in');
-            if ($logged_in_user['is_admin'])
-            {
-                redirect('admin');
-            }
-            else
-            {
-                redirect(base_url());
-            }
+        if($this->user['id']!=''){
+            redirect();
         }
 
         // set form validation rules
         $this->form_validation->set_error_delimiters($this->config->item('error_delimeter_left'), $this->config->item('error_delimeter_right'));
         $this->form_validation->set_rules('username', lang('users input username_email'), 'required|trim|max_length[256]');
         $this->form_validation->set_rules('password', lang('users input password'), 'required|trim|max_length[72]|callback__check_login');
+
+
+
+
+   
 
         if ($this->form_validation->run() == TRUE)
         {
@@ -73,10 +67,19 @@ class User extends Public_Controller {
             else
             {
                 $logged_in_user = $this->session->userdata('logged_in');
-                if ($logged_in_user['is_admin'])
+
+              
+                // echo '<pre>';
+
+                // print_r($logged_in_user);
+                // echo $user;
+                // exit();
+            
+
+                if ($logged_in_user['id']!='')
                 {
                     // redirect to admin dashboard
-                    redirect('admin');
+                    redirect('dashboard');
                 }
                 else
                 {
@@ -89,12 +92,11 @@ class User extends Public_Controller {
         // setup page header data
         $this->set_title(lang('users title login'));
 
-		$this->add_css_theme('login.css');
 
         $data = $this->includes;
 
+
         // load views
-        $data['site_data'] = $site_info;
         $data['content'] = $this->load->view('user/login', NULL, TRUE);
         $this->load->view($this->template, $data);
     }
@@ -105,7 +107,15 @@ class User extends Public_Controller {
      */
     function logout()
     {
-        $this->session->unset_userdata('logged_in');
+
+       // set online ==0
+        $this->db->set('online', 0);
+        $this->db->set('ip_address',$this->input->ip_address());
+        $this->db->where('id',  $this->user['id']);
+        $this->db->update('users');
+      
+        $login = $this->session->unset_userdata('logged_in');
+
         $this->session->sess_destroy();
         redirect('login');
     }
@@ -121,6 +131,7 @@ class User extends Public_Controller {
         $this->form_validation->set_rules('username', lang('users input username'), 'required|trim|min_length[5]|max_length[30]|callback__check_username');
         $this->form_validation->set_rules('first_name', lang('users input first_name'), 'required|trim|min_length[2]|max_length[32]');
         $this->form_validation->set_rules('last_name', lang('users input last_name'), 'required|trim|min_length[2]|max_length[32]');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'required|integer|trim|min_length[11]|max_length[15]');
         $this->form_validation->set_rules('email', lang('users input email'), 'required|trim|max_length[256]|valid_email|callback__check_email');
         $this->form_validation->set_rules('language', lang('users input language'), 'trim');
         $this->form_validation->set_rules('password', lang('users input password'), 'required|trim|min_length[5]');
@@ -129,36 +140,25 @@ class User extends Public_Controller {
         if ($this->form_validation->run() == TRUE)
         {
             // save the changes
-            $_POST['language']='english';
+            // $_POST['language']='english';
+            $_POST['user_type']=2;
+             $_POST['is_admin']='1';
+
             $validation_code = $this->users_model->create_profile($this->input->post());
 
             if ($validation_code)
             {
                 // build the validation URL
+                $email = $this->input->post('email', TRUE);
                 $encrypted_email = sha1($this->input->post('email', TRUE));
                 $validation_url  = base_url('user/validate') . "?e={$encrypted_email}&c={$validation_code}";
 
                 // build email
-                $email_msg  = lang('core email start');
-                $email_msg .= sprintf(lang('users msg email_new_account'), $this->settings->site_name, $validation_url, $validation_url);
-                $email_msg .= lang('core email end');
-
-                // send email
-                $this->load->library('email');
-                $config['protocol'] = 'sendmail';
-                $config['mailpath'] = '/usr/sbin/sendmail -f' . $this->settings->site_email;
-                $this->email->initialize($config);
-                $this->email->clear();
-                $this->email->from($this->settings->site_email, $this->settings->site_name);
-                $this->email->reply_to($this->settings->site_email, $this->settings->site_name);
-                $this->email->to($this->input->post('email', TRUE));
-                $this->email->subject(sprintf(lang('users msg email_new_account_title'), $this->input->post('first_name', TRUE)));
-                $this->email->message($email_msg);
-                $this->email->send();
-                #echo $this->email->print_debugger();
-
-                $this->session->language = $this->input->post('language');
-                $this->lang->load('users', $this->user['language']);
+                $send_email = $this->_send_email($email,$validation_url);
+                if(!$send_email){
+                    $this->session->set_flashdata('error', lang('users error register_failed'));
+                    redirect($_SERVER['REQUEST_URI'], 'refresh');
+                }
                 $this->session->set_flashdata('message', sprintf(lang('users msg register_success'), $this->input->post('first_name', TRUE)));
             }
             else
@@ -184,7 +184,76 @@ class User extends Public_Controller {
         );
 
         // load views
-        $data['content'] = $this->load->view('user/profile_form', $content_data, TRUE);
+        $data['content'] = $this->load->view('user/register', $content_data, TRUE);
+        $this->load->view($this->template, $data);
+    }
+
+    /**
+     * Registration Form
+     */
+    function register_buyer()
+    {
+        // validators
+        $this->form_validation->set_error_delimiters($this->config->item('error_delimeter_left'), $this->config->item('error_delimeter_right'));
+        $this->form_validation->set_rules('username', lang('users input username'), 'required|trim|min_length[5]|max_length[30]|callback__check_username');
+        $this->form_validation->set_rules('first_name', lang('users input first_name'), 'required|trim|min_length[2]|max_length[32]');
+        $this->form_validation->set_rules('last_name', lang('users input last_name'), 'required|trim|min_length[2]|max_length[32]');
+        $this->form_validation->set_rules('email', lang('users input email'), 'required|trim|max_length[256]|valid_email|callback__check_email');
+
+        $this->form_validation->set_rules('mobile', 'Mobile', 'required|integer|trim|min_length[11]|max_length[15]');
+        
+        $this->form_validation->set_rules('language', lang('users input language'), 'trim');
+        $this->form_validation->set_rules('password', lang('users input password'), 'required|trim|min_length[5]');
+        $this->form_validation->set_rules('password_repeat', lang('users input password_repeat'), 'required|trim|matches[password]');
+
+        if ($this->form_validation->run() == TRUE)
+        {
+            // save the changes
+            $_POST['language']='english';
+            $_POST['user_type']=3;
+            $_POST['is_admin']='1';
+           
+            $validation_code = $this->users_model->create_profile($this->input->post());
+
+            if ($validation_code)
+            {
+                // build the validation URL
+                $email = $this->input->post('email', TRUE);
+                $encrypted_email = sha1($this->input->post('email', TRUE));
+                $validation_url  = base_url('user/validate') . "?e={$encrypted_email}&c={$validation_code}";
+
+       
+                $send_email = $this->_send_email($email,$validation_url);
+                if(!$send_email){
+                    $this->session->set_flashdata('error', lang('users error register_failed'));
+                    redirect($_SERVER['REQUEST_URI'], 'refresh');
+                }
+                $this->session->set_flashdata('message', sprintf(lang('users msg register_success'), $this->input->post('first_name', TRUE)));
+            }
+            else
+            {
+                $this->session->set_flashdata('error', lang('users error register_failed'));
+                redirect($_SERVER['REQUEST_URI'], 'refresh');
+            }
+
+            // redirect home and display message
+            redirect(base_url('login'));
+        }
+
+        // setup page header data
+        $this->set_title(lang('users title register'));
+
+        $data = $this->includes;
+
+        // set content data
+        $content_data = array(
+            'cancel_url'        => base_url(),
+            'user'              => NULL,
+            'password_required' => TRUE
+        );
+
+        // load views
+        $data['content'] = $this->load->view('user/profile_form_seller', $content_data, TRUE);
         $this->load->view($this->template, $data);
     }
 
@@ -214,11 +283,11 @@ class User extends Public_Controller {
     }
 
 
-    /**
-	 * Forgot password
+   /**
+     * Forgot password
      */
-	function forgot()
-	{
+    function forgot()
+    {
         // validators
         $this->form_validation->set_error_delimiters($this->config->item('error_delimeter_left'), $this->config->item('error_delimeter_right'));
         $this->form_validation->set_rules('email', lang('users input email'), 'required|trim|max_length[256]|valid_email|callback__check_email_exists');
@@ -227,28 +296,53 @@ class User extends Public_Controller {
         {
             // save the changes
             $results = $this->users_model->reset_password($this->input->post());
+            $email   = $this->input->post('email');
 
             if ($results)
             {
                 // build email
+
                 $reset_url  = base_url('login');
                 $email_msg  = lang('core email start');
                 $email_msg .= sprintf(lang('users msg email_password_reset'), $this->settings->site_name, $results['new_password'], $reset_url, $reset_url);
                 $email_msg .= lang('core email end');
 
-                // send email
+                $data = array(
+                 'msg'=> $email_msg,
+                 'link'=> base_url(),
+                 'site'=> $this->settings->site_name,
+                );
+
+                $message = $this->load->view('email/forgot_email', $data, true);   
+
+                
+               //Load email library
                 $this->load->library('email');
-                $config['protocol'] = 'sendmail';
-                $config['mailpath'] = '/usr/sbin/sendmail -f' . $this->settings->site_email;
+               //SMTP & mail configuration
+                $config = array(
+                        'protocol'  => 'smtp',
+                        'smtp_host' => $this->config->item('email_smtp_host') ,
+                        'smtp_port' => $this->config->item('email_port') ,
+                        'smtp_user' =>  $this->config->item('email_user') ,
+                        'smtp_pass' =>  $this->config->item('email_pass'),
+                        'mailtype'  => 'html',
+                        'charset'   => 'utf-8',
+                    );
                 $this->email->initialize($config);
-                $this->email->clear();
-                $this->email->from($this->settings->site_email, $this->settings->site_name);
-                $this->email->reply_to($this->settings->site_email, $this->settings->site_name);
-                $this->email->to($this->input->post('email', TRUE));
-                $this->email->subject(sprintf(lang('users msg email_password_reset_title'), $results['first_name']));
+                $this->email->set_mailtype("html");
+                $this->email->set_newline("\r\n");
+
+               
+
+                $this->email->to($email);
+                $this->email->from('nakib.un@gmail.com',$this->settings->site_name);
+                $this->email->subject('Account');
                 $this->email->message($email_msg);
+
+                //Send email
+
                 $this->email->send();
-                #echo $this->email->print_debugger();
+               
 
                 $this->session->set_flashdata('message', sprintf(lang('users msg password_reset_success'), $results['first_name']));
             }
@@ -277,10 +371,55 @@ class User extends Public_Controller {
         $this->load->view($this->template, $data);
     }
 
-
     /**************************************************************************************
      * PRIVATE VALIDATION CALLBACK FUNCTIONS
      **************************************************************************************/
+
+    function _send_email($email,$link){
+        //Load email library
+        $this->load->library('email');
+
+        //SMTP & mail configuration
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => $this->config->item('email_smtp_host') ,
+            'smtp_port' => $this->config->item('email_port') ,
+            'smtp_user' =>  $this->config->item('email_user') ,
+            'smtp_pass' =>  $this->config->item('email_pass'),
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            // 'smtp_crypto' => 'ssl'
+        );
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+
+      
+
+        $data = array(
+                 'link'=> $link,
+                 'site_link'=> base_url(),
+                 'site'=> $this->settings->site_name
+                );
+
+        $message = $this->load->view('email/activation_email', $data, true);   
+
+        $this->email->to($email);
+        $this->email->from($this->config->item('email_user'),$this->settings->site_name);
+        $this->email->subject('Account activation');
+        $this->email->message($message);
+
+        //Send email
+
+        try{
+
+            $this->email->send();
+            return true;
+        }
+        catch(Exception $e){
+                return false;
+        }
+    }
 
 
     /**
@@ -290,7 +429,7 @@ class User extends Public_Controller {
      * @return boolean
      */
     function _check_login($password)
-    {
+    {   
         // limit number of login attempts
         $ok_to_login = $this->users_model->login_attempts();
 
@@ -299,8 +438,17 @@ class User extends Public_Controller {
             $login = $this->users_model->login($this->input->post('username', TRUE), $password);
 
             if ($login)
-            {
+            {   
+
                 $this->session->set_userdata('logged_in', $login);
+
+                // set online ==1
+                $this->db->set('online', 1);
+                $this->db->set('ip_address',$this->input->ip_address());
+                $this->db->where('id',  $login['id']);
+                $this->db->update('users');
+
+                
                 return TRUE;
             }
 

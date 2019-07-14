@@ -30,11 +30,16 @@
 
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="<?=base_url()?>admin_asset/bower_components/bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="<?=base_url()?>admin_asset/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-      <link rel="stylesheet" type="text/css" href="<?=base_url()?>admin_asset/assets/icon/feather/css/feather.css">
-      <!-- <link rel="stylesheet" type="text/css" href="<?=base_url()?>admin_asset/assets/css/font-awesome-n.min.css"> -->
-      <!-- <link rel="stylesheet" type="text/css" href="<?=base_url()?>admin_asset/assets/css/widget.css"> -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
+
+      <!-- css -->
+      <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/themes/admin/vendor/bootstrap/css/bootstrap.min.css?v=<?php echo $this->settings->site_version; ?>">
+      <link rel="stylesheet" href="<?=base_url()?>assets/themes/admin/vendor/waves/css/waves.min.css?v=<?php echo $this->settings->site_version; ?>" type="text/css" media="all">
+      <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/themes/admin/vendor/feather/css/feather.css?v=<?php echo $this->settings->site_version; ?>">
+
+     <!--  <link rel="stylesheet" type="text/css" href="<?=base_url()?>admin_asset/assets/css/font-awesome-n.min.css">
+       --><!-- <link rel="stylesheet" type="text/css" href="<?=base_url()?>admin_asset/assets/css/widget.css"> -->
       <?php // CSS files ?>
         <?php if (isset($css_files) && is_array($css_files)) : ?>
             <?php foreach ($css_files as $css) : ?>
@@ -46,7 +51,7 @@
         <?php endif; ?>
       <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/themes/admin/css/custom.css">
       
-      <script type="text/javascript" src="<?=base_url()?>admin_asset/bower_components/jquery/js/jquery.min.js"></script>
+      <script type="text/javascript" src="<?=base_url()?>assets/themes/admin/vendor/jquery/js/jquery.min.js"></script>
 
              <?php // Javascript files ?>
     <?php if (isset($js_files) && is_array($js_files)) : ?>
@@ -317,21 +322,25 @@
          <p>Sorry for the inconvenience!</p>
       </div>
       <![endif]-->
-      <script type="text/javascript" src="<?=base_url()?>admin_asset/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-      <script type="text/javascript" src="<?=base_url()?>admin_asset/bower_components/popper.js/js/popper.min.js"></script>
-      <script type="text/javascript" src="<?=base_url()?>admin_asset/bower_components/bootstrap/js/bootstrap.min.js"></script>
-      <script src="<?=base_url()?>admin_asset/assets/pages/waves/js/waves.min.js"></script>
-      <script type="text/javascript" src="<?=base_url()?>admin_asset/bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
-      <script src="<?=base_url()?>admin_asset/assets/js/pcoded.min.js"></script>
-      <script src="<?=base_url()?>admin_asset/assets/js/vertical/vertical-layout.min.js"></script>
- 
-      <script type="text/javascript" src="<?=base_url()?>admin_asset/assets/js/script.min.js"></script>
-      <script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
-         
-         gtag('config', 'UA-23581568-13');
-      </script>
+      <script type="text/javascript" src="<?=base_url()?>assets/themes/admin/vendor/jquery-ui/js/jquery-ui.min.js"></script>
+
+
+      <script type="text/javascript" src="<?=base_url()?>assets/themes/admin/vendor/popper.js/js/popper.min.js"></script>
+
+      <script type="text/javascript" src="<?=base_url()?>assets/themes/admin/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+
+      <script src="<?=base_url()?>assets/themes/admin/vendor/waves/js/waves.min.js"></script>
+
+
+      <script type="text/javascript" src="<?=base_url()?>assets/themes/admin/vendor/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+
+      <script src="<?=base_url()?>assets/themes/admin/vendor/pcoded.min.js"></script>
+
+      <script src="<?=base_url()?>assets/themes/admin/vendor/vertical/vertical-layout.min.js"></script>
+      <script src="<?=base_url()?>assets/themes/admin/js/notify.js"></script>
+
+      <script type="text/javascript" src="<?=base_url()?>assets/themes/admin/vendor/script.min.js"></script>
+     
    </body>
 </html>

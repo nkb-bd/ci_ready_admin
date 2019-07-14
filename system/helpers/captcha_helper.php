@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('create_captcha'))
-{
+{	
 	/**
 	 * Create CAPTCHA
 	 *
@@ -61,7 +61,9 @@ if ( ! function_exists('create_captcha'))
 	 * @return	string
 	 */
 	function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = '')
-	{
+	{	
+
+		return ;
 		$defaults = array(
 			'word'		=> '',
 			'img_path'	=> '',
