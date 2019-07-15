@@ -375,30 +375,29 @@ class Users_model extends CI_Model {
      * @param  string $password
      * @return array|boolean
      */
-    function login($username=NULL, $password=NULL)
+     function login($username=NULL, $password=NULL)
     {
         if ($username && $password)
         {
             $sql = "
                 SELECT
-                    id,
+                    users.id as id,
+                    user_type,
                     username,
+                    groupName,
+                    permission_groups.id as group_id,
                     password,
                     salt,
                     first_name,
                     last_name,
                     email,
-                    user_type,
-                    profile_img,
                     language,
                     is_admin,
-                    
                     status,
                     created,
-                    updated,
-                    ip_address
-                    
+                    updated
                 FROM {$this->_db}
+                LEFT OUTER JOIN permission_groups on permission_groups.id = users.user_type
                 WHERE (username = " . $this->db->escape($username) . "
                         OR email = " . $this->db->escape($username) . ")
                     AND status = '1'

@@ -9,7 +9,7 @@
         <li class="<?php echo (uri_string() == 'dashboard') ? 'active' : ''; ?> ">
             <a href="<?=base_url()?>/dashboard" class="waves-effect waves-dark">
             <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-            <span class="pcoded-mtext">Dashboard </span>
+            <span class="pcoded-mtext"> <?php echo $this->user['groupName']  ?> Dashboard </span>
             </a>
         </li>
 

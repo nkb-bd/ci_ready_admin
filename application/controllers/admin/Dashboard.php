@@ -13,11 +13,9 @@ class Dashboard extends Admin_Controller {
         parent::__construct();
 
         $this->load->model('common_model');
-        $this->load->model('seller/projects_model');
 
         $this->lang->load('dashboard');
         
-      
     }
 
 
