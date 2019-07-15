@@ -56,6 +56,7 @@ class MY_Controller extends CI_Controller {
         // get languages
         $this->languages = get_languages();
 
+
         // set language according to this priority:
         //   1) First, check session
         //   2) If session not set, use the users language
@@ -574,7 +575,8 @@ class Admin_Controller extends MY_Controller {
         //     ->add_js_theme("summernote.min.js,selectize.min.js" )
            
          // 
-         $this->add_css_theme(array("font-awesome-n.min.css",
+         $this->add_css_theme(array(
+                                    // "font-awesome-n.min.css",
                                     "style.css",
                                     "widget.css",
                                     ));

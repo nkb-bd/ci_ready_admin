@@ -4,7 +4,7 @@
  */
 var config = {
     logging : true,
-    baseURL : "http://localhost/starter-master/"
+    baseURL : ""
 };
 
 
@@ -59,8 +59,10 @@ $(document).ready(function() {
     /**
      * Session language selected
      */
-    $('#session-language-dropdown a').click(function(e) {
+    $('#session-language-dropdown > li > a').click(function(e) {
         // prevent default behavior
+
+        console.log('x');
         if (e.preventDefault) {
             e.preventDefault();
         } else {

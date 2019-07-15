@@ -92,46 +92,6 @@ function encrypt_decrypt($action, $string)
     }
 }
 
-
-
-/**
- * get balance
- *
- * @param array $array - The original array to convert to JSON
- * @return string - Friendly formatted JSON string
- */
-if ( ! function_exists('get_balance'))
-{
-   function get_balance($id) {
-       
-
-
-        if (!empty($id)){
-
-            $CI =& get_instance();
-
-            $CI->db->select("balance");
-            $CI->db->from("users");
-            $CI->db->where("id",$id);
-           
-            
-            $query =  $CI->db->get();
-
-
-
-            if ($query->num_rows() >= 1){ 
-                $result =  $query->row_array(); 
-                return $result['balance']; 
-            }
-            return false;
-
-         
-
-        }
-
-
-    }
-}
 /**
  * get balance
  *
@@ -172,21 +132,22 @@ if ( ! function_exists('get_notification'))
 
     }
 }
-/**
- * get balance
- *
- * @param array $array - The original array to convert to JSON
- * @return string - Friendly formatted JSON string
- */
-if ( ! function_exists('get_project_identifier'))
+
+
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('admin_assets'))
 {
-   function get_project_identifier() {
-       
-
-
-       $name = "Lead";
-
-       return $name;
+    /**
+     * public asset url
+     *
+   
+     * @return  string
+     */
+    function admin_assets($url = '')
+    {
+        return base_url('assets/themes/admin/'.$url);
     }
 }
 /**

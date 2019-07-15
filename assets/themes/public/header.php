@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="<?php echo   base_url() ?>assets/themes/admin/js/my-js.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -53,21 +54,47 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li>  <a href="<?php echo   base_url() ?>"><?php echo $this->settings->site_name ?></a></li>
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
+        <li class="active">
+          <a href="<?=base_url()?>"> <?php echo   lang('core button home') ?></a>
+        </li>
+        <li><a href="#"> <?php echo   lang('core button contact') ?></a></li>
+        <li>
+             <span class="dropdown" >
+                            <button style="margin:10px;" id="session-language" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-default">
+                                <?php echo   ucfirst($this->session->language )?><i class="fa fa-language"></i>
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="session-language-dropdown" class="dropdown-menu" role="menu" aria-labelledby="session-language">
+                                <?php foreach ($this->languages as $key=>$name) : ?>
+                                    <li>
+                                        <a href="#" rel="<?php echo $key; ?>">
+                                            <?php if ($key == $this->session->language) : ?>
+                                                <i class="fa fa-check selected-session-language"></i>
+                                            <?php endif; ?>
+                                            <?php echo $name; ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </span>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 
         <li>
           <?php if (!$this->user): ?>
             
-              <a href="<?php echo   base_url() ?>login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+              <a href="<?php echo   base_url() ?>login">
+                <span class="glyphicon glyphicon-log-in"></span> 
+                <?php echo  lang('core button login') ?>
+
+              </a>
           
           <?php elseif ($this->user): ?>
 
-              <a href="<?php echo   base_url() ?>logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+              <a href="<?php echo   base_url() ?>logout"><span class="glyphicon glyphicon-log-out"></span> 
+                   <?php echo  lang('core button logout') ?>
+              </a>
           
           <?php endif ?>
         </li>
