@@ -8,7 +8,8 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="https://placehold.it/1200x400?text=IMAGE" alt="Image">
+        <!-- <img src="https://placehold.it/1200x400?text=CI" alt="Image"> -->
+        <img src="https://cdn.pixabay.com/photo/2018/03/21/10/01/desktop-3246124_960_720.jpg" alt="Image">
         <div class="carousel-caption">
           <h3>Welcome Message</h3>
           <p><?php echo   $this->settings->welcome_message ?></p>
@@ -16,7 +17,8 @@
       </div>
 
       <div class="item">
-        <img src="https://placehold.it/1200x400?text=Another Image Maybe" alt="Image">
+        <!-- <img src="https://placehold.it/1200x400?text=Hello" alt="Image"> -->
+        <img src="https://cdn.pixabay.com/photo/2015/10/30/20/13/sunrise-1014712_960_720.jpg" alt="Image">
         <div class="carousel-caption">
           <h3>Feel free to email for any query</h3>
           <p>Any kind of feedback is welcome</p>
@@ -37,7 +39,7 @@
   
 <div class="container text-center">    
   <h3>Categories</h3><br>
-  
+
   <div class="row">
     <div class="col-sm-4">
       <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
