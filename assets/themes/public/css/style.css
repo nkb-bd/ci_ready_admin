@@ -1,0 +1,10 @@
+.navbar-inverse{
+	    padding: 15px;
+}
+.navbar-brand {
+     padding: 0;
+}
+.navbar-inverse  ul li a{
+	color: #eee!important;
+}
+
