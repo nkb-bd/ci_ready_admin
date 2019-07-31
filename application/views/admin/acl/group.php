@@ -32,7 +32,7 @@
                             <div class="col-md-3 list-group-item">
                                <button  href="#edit<?php echo $key; ?>" data-toggle="modal"   class="btn btn-primary btn-xs">Edit</button>
 
-                               <button href="#del<?php echo $key; ?>" data-toggle="modal"    class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                               <button href="#del<?php echo $key; ?>" data-toggle="modal"    class="btn btn-danger btn-xs">Delete</button>
                             </div>
                             
                         </div>

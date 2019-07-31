@@ -15,9 +15,7 @@ class User extends Public_Controller {
 
         // load the users language file
         $this->lang->load('users');
-
-
-
+        // login template
         $this->template = "../../assets/themes/login/template.php";
         
            
@@ -69,22 +67,18 @@ class User extends Public_Controller {
                 $logged_in_user = $this->session->userdata('logged_in');
 
               
-                // echo '<pre>';
-
-                // print_r($logged_in_user);
-                // echo $user;
-                // exit();
+              
             
 
-                if ($logged_in_user['id']!='')
+                if ($logged_in_user['is_admin']==1)
                 {
-                    // redirect to admin dashboard
+                   
                     redirect('dashboard');
                 }
                 else
                 {
                     // redirect to landing page
-                    redirect(base_url());
+                    redirect('user');
                 }
             }
         }

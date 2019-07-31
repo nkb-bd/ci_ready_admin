@@ -226,6 +226,8 @@ class Users extends Admin_Controller {
 
         $all_role = $this->get_all_role();
 
+
+
         // set content data
         $content_data = array(
             'cancel_url'        => $this->_redirect_url,
@@ -346,7 +348,7 @@ class Users extends Admin_Controller {
             }
 
             // return to list and display message
-           redirect('admin/users/edit/'.$this->session->logged_in['id']);
+           redirect('admin/users/edit/'.$postData['id']);
         }
 
         // setup page header data

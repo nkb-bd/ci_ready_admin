@@ -1,51 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<style> 
-.bttn_loader.spinning {
-    background-color: @base;
-    padding-right: 40px;
-}
-.bttn_loader.spinning:after {
-    content: '';
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    width: 0;
-    height: 0;
-    box-shadow: 0px 0px 0 1px darken(@base,10%);
-    position: absolute;
-    border-radius: 50%;
-    animation: rotate360 .5s infinite linear, exist .1s forwards ease;
-}
 
-.bttn_loader.spinning:before {
-    content: "";
-    width: 0px;
-    height: 0px;
-    border-radius: 50%;
-    right: 6px;
-    top: 50%;
-    position: absolute;
-    border: 2px solid darken(@base,40%);
-    border-right: 3px solid @accent;
-    animation: rotate360 .5s infinite linear, exist .1s forwards ease ;
-    
-}
-
-
-
-@keyframes rotate360 { 
-    100% {
-        transform: rotate(360deg);
-    }
-}
-@keyframes exist { 
-    100% {
-        width: 15px;
-        height: 15px;
-        margin: -8px 5px 0 0;
-    }
-}
-</style>
 <div class="panel panel-default card card-body">
     <div class="panel-heading">
         <div class="row">
@@ -53,10 +7,7 @@
                 <?php 
   
                     $tbl_field = $this->db->list_fields($tbl_selected);
-
-                          
-
-
+             
                 ?>
 
                <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">New Category</button>
@@ -140,10 +91,17 @@
                             <div class="text-right">
                                 <div class="btn-group">
                                   
-                                        <a href="#modal-<?php echo $data['id']; ?>" data-toggle="modal" class="btn btn-danger btn-xs" title="<?php echo lang('admin button delete'); ?>"><span class="fa fa-trash"></span></a>
                                   
 
-                                    <a  href="#modal-delete-<?php echo $data['id']; ?>" data-toggle="modal"  class="btn btn-warning btn-xs bttn_loader" id="<?php echo ('admin button edit'); ?>">Edit <span class="fa fa-check"></span></a>
+                                    
+                                    <?php   $url = "#modal-".$data['id']; ?>
+                                    <?php echo  generate_action_button($url,'delete-modal') ?>
+
+                                  
+                                    
+                                    <?php   $url = "#modal-edit-".$data['id']; ?>
+
+                                    <?php echo  generate_action_button($url,'edit-modal') ?>
                                 </div>
                             </div>
                         </td>
@@ -201,8 +159,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header  card-red">
-                        <h4  class="text-white" style="z-index:2" id="modal-label-<?php echo $data['id']; ?>">Delete</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4  class="text-white col-md-12" style="z-index:2" id="modal-label-<?php echo $data['id']; ?>">Delete
+                              <button type="button" class="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </h4>
+                      
                     </div>
                     <div class="modal-body">
                         <p>Confirm Delete <b class="text-pink"> <?php echo $data[$tbl_field[1]] ?> </b class="text-pink">?</p>
@@ -210,19 +170,23 @@
                     <div class="modal-footer">
                         
                         <button type="button" class="btn btn-default" data-dismiss="modal"> Cancel</button>
-                        <a  class="btn btn-danger btn-delete-user" href="<?php echo $this_url ?>/delete/<?php echo $data['id']; ?>">delete</a>
+
+                        <?php   $url = $this_url."/delete/".$data['id']; ?>
+
+                        <?php echo  generate_action_button($url,'delete') ?>
+                      
                     </div>
                 </div>
             </div>
         </div>
         <!-- edit  -->
-        <div class="modal fade" id="modal-delete-<?php echo $data['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modal-label-<?php echo $data['id']; ?>" aria-hidden="true">
+        <div class="modal fade" id="modal-edit-<?php echo $data['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modal-label-<?php echo $data['id']; ?>" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
                     <div class="modal-content">
                       <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Edit</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
                       <div class="modal-body">
                         <?php echo  form_open('admin/category/edit/'.$data['id']); ?>

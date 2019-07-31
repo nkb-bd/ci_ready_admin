@@ -22,24 +22,24 @@
       <META NAME="ROBOTS" CONTENT="NOINDEX, FOLLOW">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="description" content="Admindek Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
-      <meta name="keywords" content="flat ui, admin Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+      <meta name="description" content="" />
+      <meta name="keywords" content="">
       <meta name="author" content="colorlib" />
       <link rel="icon" href="<?=base_url()?>favicon.ico" type="image/x-icon">
       <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>favicon.ico">
 
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
+     
 
       <!-- css -->
       <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/themes/admin/vendor/bootstrap/css/bootstrap.min.css?v=<?php echo $this->settings->site_version; ?>">
       <link rel="stylesheet" href="<?=base_url()?>assets/themes/admin/vendor/waves/css/waves.min.css?v=<?php echo $this->settings->site_version; ?>" type="text/css" media="all">
+
       <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/themes/admin/vendor/feather/css/feather.css?v=<?php echo $this->settings->site_version; ?>">
 
-     <!--  <link rel="stylesheet" type="text/css" href="<?=base_url()?>admin_asset/assets/css/font-awesome-n.min.css">
-       --><!-- <link rel="stylesheet" type="text/css" href="<?=base_url()?>admin_asset/assets/css/widget.css"> -->
+    
       <?php // CSS files ?>
         <?php if (isset($css_files) && is_array($css_files)) : ?>
             <?php foreach ($css_files as $css) : ?>
@@ -49,6 +49,7 @@
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
+
       <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/themes/admin/css/custom.css">
       
       <script type="text/javascript" src="<?=base_url()?>assets/themes/admin/vendor/jquery/js/jquery.min.js"></script>
@@ -74,7 +75,7 @@
             <nav class="navbar header-navbar pcoded-header">
                <div class="navbar-wrapper">
                   <div class="navbar-logo">
-                     <a href="<?=base_url()?>admin">
+                     <a href="<?=base_url()?>">
                            <?php echo $this->settings->site_name; ?>
                      </a>
                      <a class="mobile-menu" id="mobile-collapse" href="#!">
@@ -118,15 +119,7 @@
                                     <label class="label label-danger">New</label>
                                  </li>
                                  <li>
-                                    <div class="media">
-                                       <img class="img-radius" data-cfsrc="<?=base_url()?>admin_asset/assets/images/avatar-4.jpg" alt="Generic placeholder image" style="display:none;visibility:hidden;">
-                                       <noscript><img class="img-radius" src="<?=base_url()?>admin_asset/assets/images/avatar-4.jpg" alt="Generic placeholder image"></noscript>
-                                       <div class="media-body">
-                                          <h5 class="notification-user">John Doe</h5>
-                                          <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                          <span class="notification-time">30 minutes ago</span>
-                                       </div>
-                                    </div>
+                                 
                                  </li>
                                  <li>
                                     <div class="media">

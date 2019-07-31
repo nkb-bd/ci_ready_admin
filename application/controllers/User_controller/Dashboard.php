@@ -4,7 +4,7 @@ class Dashboard extends Private_Controller {
 
 
   
-    public $user_info;
+   
     /**
      * Constructor
      */
@@ -14,16 +14,13 @@ class Dashboard extends Private_Controller {
 
 
         // load the language files
-         $this->load->model('users_model');
+        $this->load->model('users_model');
         $this->load->model('common_model');
-         $this->lang->load('users');
-        if (  $this->user['user_type']!=2) {
-          redirect();
-        }
+        $this->lang->load('users');
+       
 
-        $u_id = $this->user['id'];
-        $this->user_info = $this->common_model->get_by_where('id',$u_id,'users');
-        $this->user_info =  $this->user_info[0];
+        
+      
     }
 
 
@@ -32,7 +29,7 @@ class Dashboard extends Private_Controller {
      */
     function index()
     {
-        $this->set_title('Admin ');
+        $this->set_title('User ');
         $this->set_page_header('Dashboard');
 
         
@@ -44,7 +41,7 @@ class Dashboard extends Private_Controller {
 
         $u_id = $this->user['id'];
         $limit = 10;
-        $all_projects = $this->common_model->get_by_where('posted_by',$u_id,'projects','id','desc',$limit);
+        $all_projects = '';
 
         $project_count = 0;
         
@@ -65,7 +62,7 @@ class Dashboard extends Private_Controller {
             'main_menu'   => '',
             'login_logs'  => '',
             'login_attempts'  => '',
-             'user_info'   => $this->user_info,
+             'user_info'   => '',
           
         );
         
@@ -74,7 +71,7 @@ class Dashboard extends Private_Controller {
         // exit();
 
         // load views
-        $data['content'] = $this->load->view('seller/dashboard', $content_data, TRUE);
+        $data['content'] = $this->load->view('home', $content_data, TRUE);
         $this->load->view($this->template, $data);
     }
 

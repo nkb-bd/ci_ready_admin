@@ -81,7 +81,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
 
-        <li>
+      
           <?php if (!$this->user): ?>
             
               <a href="<?php echo   base_url() ?>login">
@@ -91,13 +91,32 @@
               </a>
           
           <?php elseif ($this->user): ?>
+               
+              <?php if ( $this->user['is_admin']==1): ?>
+              <li>
 
+              
+                      <a href="<?php echo   base_url() ?>dashboard">
+                        Dashboard
+                      </a>
+              </li>
+              <?php elseif ( $this->user['is_admin']==0): ?>
+              <li>
+
+                      <a href="<?php echo   base_url() ?>user">
+                        User Panel
+                      </a>
+              </li>
+
+              <?php endif ?> 
+
+              <li>
               <a href="<?php echo   base_url() ?>logout"><span class="glyphicon glyphicon-log-out"></span> 
                    <?php echo  lang('core button logout') ?>
               </a>
           
+              </li>
           <?php endif ?>
-        </li>
       </ul>
     </div>
   </div>

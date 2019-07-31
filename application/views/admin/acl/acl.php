@@ -1,5 +1,4 @@
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/all.css" />
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/all.css" />
 <!-- css fix -->
 <style>
   .icheckbox_flat-green {
@@ -17,7 +16,7 @@
 
           <!-- user group list -->
 
-          <?php echo form_open_multipart('admin/acl/', array('role'=>'form')); ?>
+          <?php echo form_open_multipart('admin/acl/', array('role'=>'form','class'=>'col-md-12')); ?>
 
   
           <div class="card ">
@@ -27,7 +26,7 @@
 
                           <div class="form-group col-md-12">
                               <label for="sub_heading">Group </label>
-                              <select name="groupID" class="form-control" id="grp_perm">
+                              <select name="groupID" class="  form-control" id="grp_perm">
 
                                 <?php if ($all_grp): ?>
                                   <?php foreach ($all_grp as $key => $value): 
@@ -76,7 +75,7 @@
 
                      <li class="list-group-item "   > 
 
-                        <strong> Module Name <span class="pull-right">
+                        <strong> ALl Module  <span class="pull-right">
                           
                            <?php  #if ($this->user['user_type']!=1):?> 
                            <?php if (true):?> 
@@ -96,7 +95,7 @@
 
                         $temp = $value['module_name'];
                     ?>
-                    
+                    </div>
                     </li>
                        <li class="list-group-item list-group-item-info"  > 
 
@@ -104,6 +103,7 @@
 
                        </li>
                        <li class="list-group-item" style="min-height: 70px;"  > 
+                        <div class="row"> 
 
                     <?php
 
@@ -112,7 +112,7 @@
                      ?>
 
                       
-                        <div class="col-md-4"> 
+                        <div class="col-md-3"> 
                             <strong  style="margin-left: 10px;"> 
                               <?php echo $value['name'] ?>
                             </strong>

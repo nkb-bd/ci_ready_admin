@@ -107,8 +107,9 @@
                                         
                                         <?php  if (in_array('user_delete', $this->permissions)){ ?>
 
-                                            <a href="#modal-<?php echo $user['id']; ?>" data-toggle="modal" class="btn btn-danger btn-xs" title="Delete">
-                                                Delete <span class="fa fa-trash"></span></a>
+                                           
+                                            <?php   $url = "#modal-".$user['id']; ?>
+                                            <?php echo  generate_action_button($url,'delete-modal') ?>
 
                                         <?php   } ?>
 
@@ -117,13 +118,11 @@
 
                                         <?php if (( $this->user['id']==$user['id'])|| in_array('user_update', $this->permissions)) :?>
                                             
-                                            <a href="<?php echo $this_url; ?>/edit/<?php echo $user['id']; ?>" class="btn btn-primary btn-xs" title="Edit">
-                                                Edit <span class="fa fa-edit"> </span>
-                                                       
-                                            </a>
+                                          
+                                            <?php   $url =  $this_url.'/edit/'.$user['id']; ?>
+                                            <?php echo  generate_action_button($url,'edit') ?>
 
-
-                                        <?php endif; ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </td>
@@ -176,17 +175,26 @@
         <div class="modal fade" id="modal-<?php echo $user['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modal-label-<?php echo $user['id']; ?>" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 id="modal-label-<?php echo $user['id']; ?>"><?php echo lang('users title user_delete');  ?></h4>
+                     <div class="modal-header  card-red">
+                        <h4  class="text-white col-md-12" style="z-index:2" id="modal-label-<?php echo $data['id']; ?>">Delete
+                              <button type="button" class="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </h4>
+                      
                     </div>
                     <div class="modal-body">
                         <p><?php echo sprintf(lang('users msg delete_confirm'), $user['first_name'] . " " . $user['last_name']); ?></p>
                     </div>
                     <div class="modal-footer">
                         
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo lang('core button cancel'); ?></button>
-                        <a  class="btn btn-primary btn-delete-user" href="<?php echo base_url() ?>admin/users/delete/<?php echo $user['id']; ?>">delete</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <?php echo lang('core button cancel'); ?>
+                                
+                        </button>
+
+
+                        <?php   $url =  base_url().'admin/users/delete/'.$user['id']; ?>
+                        <?php echo  generate_action_button($url,'delete') ?>
+                       
                     </div>
                 </div>
             </div>
