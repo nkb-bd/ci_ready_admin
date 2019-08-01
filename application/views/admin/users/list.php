@@ -176,7 +176,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                      <div class="modal-header  card-red">
-                        <h4  class="text-white col-md-12" style="z-index:2" id="modal-label-<?php echo $data['id']; ?>">Delete
+                        <h4  class="text-white col-md-12" style="z-index:2" id="modal-label-<?php echo $user['id']; ?>">Delete
                               <button type="button" class="close text-white" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </h4>
                       

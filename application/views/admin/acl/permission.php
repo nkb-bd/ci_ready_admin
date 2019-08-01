@@ -3,6 +3,22 @@
 
 
     <?php echo form_open_multipart('admin/acl/add_permission/', array('role'=>'form','id'=>'form-upload')); ?>
+    
+
+<div class="panel panel-default card card-body">
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <h3 class="panel-title">Permission Type List </h3>
+                <p> (for developers to check with controllers and methods)</p>
+            </div>
+            <div class="col-md-6 text-right">
+                
+
+            </div>
+        </div>
+    </div>
 
     <div class="card ">
         <div class="card-body">
@@ -26,25 +42,27 @@
 
                       
                     
-                    <button type="submit" class="btn btn-primary ">Submit</button>
+                    <button type="submit" class="btn btn-primary ">Add New</button>
            
         </div>
+        </div>
+        <div>
 
-            <ul class="list-group col-md-10 col-md-offset-1">
+            <ul class="list-group container">
             
               
                 <?php if ($all_perm): ?>
                             
                         <div class="row">
                             <div class="col-md-3 list-group-item">
-                                <strong>Module Name</strong>
+                                 <h4>   Module Name</h4>
                             </div>
                             <div class="col-md-3 list-group-item">
-                                <strong>Permission</strong>
+                                <h4>Permission</h4></strong>
                                 
                             </div>
                             <div class="col-md-6 list-group-item">
-                                <strong>Key</strong>
+                                <h4> Key</h4>
                                 
                             </div>
                         </div>
@@ -74,3 +92,4 @@
 
 <div class="clearfix"></div>
 
+</div>

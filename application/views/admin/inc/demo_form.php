@@ -14,7 +14,7 @@
                 <h5>
                    
                    Demo forms
-                   <?php echo   url_title('hello me') ?>
+                 
                     
                 </h5>
 
@@ -55,8 +55,8 @@
 
                     <div class="col-md-8">
                          <div class="input-group">
-                            <button type="button" class="btn btn-default float-right" id="daterange-btn">
-                              <i class="far fa-calendar-alt"></i> Date range picker
+                            <button type="button" class="btn btn-primary float-right" id="daterange-btn">
+                              <i class="far fa-calendar-alt"></i> Select Date range 
                               <i class="fas fa-caret-down"></i>
                             </button>
                           </div>

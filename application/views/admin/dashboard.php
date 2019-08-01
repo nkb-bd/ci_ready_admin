@@ -2,45 +2,29 @@
 <!-- main body -->
 <div class="row">
     <div class="col-xl-8 col-md-12">
-        <div class="card sale-card">
-            <div class="card-header">
-                <h5>Deals Analytics</h5>
-                <div class="card-header-right">
-                    <ul class="list-unstyled card-option">
-                        <li class="first-opt"><i class="feather icon-chevron-left open-card-option"></i></li>
-                        <li><i class="feather icon-maximize full-card"></i></li>
-                        <li><i class="feather icon-minus minimize-card"></i></li>
-                        <li><i class="feather icon-refresh-cw reload-card"></i></li>
-                        <li><i class="feather icon-trash close-card"></i></li>
-                        <li><i class="feather icon-chevron-left open-card-option"></i></li>
-                    </ul>
+      
+        <div class="card prod-p-card ">
+            <div class="card-body">
+                <div class="row align-items-center m-b-30">
+                    <div class="col">
+                        <h6 class="m-b-5 ">Demo</h6>
+                        <h3 class="m-b-0 f-w-700 ">15,830</h3>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-database text-c-blue f-18"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="card-block">
-                Card block
+                <p class="m-b-0 text-white"><span class="label label-primary m-r-10">+12%</span>From Previous Month</p>
             </div>
         </div>
     </div>
     <div class="col-xl-4 col-md-12">
-        <div class="card prod-p-card card-red">
-            <div class="card-body">
-                <div class="row align-items-center m-b-30">
-                    <div class="col">
-                        <h6 class="m-b-5 text-white">Total Profit</h6>
-                        <h3 class="m-b-0 f-w-700 text-white">$1,783</h3>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-money-bill-alt text-c-red f-18"></i>
-                    </div>
-                </div>
-                <p class="m-b-0 text-white"><span class="label label-danger m-r-10">+11%</span>From Previous Month</p>
-            </div>
-        </div>
+      
         <div class="card prod-p-card card-blue">
             <div class="card-body">
                 <div class="row align-items-center m-b-30">
                     <div class="col">
-                        <h6 class="m-b-5 text-white">Total Orders</h6>
+                        <h6 class="m-b-5 text-white">Demo</h6>
                         <h3 class="m-b-0 f-w-700 text-white">15,830</h3>
                     </div>
                     <div class="col-auto">
@@ -52,7 +36,7 @@
         </div>
     </div>
 </div>
-<div class="col-xl-12">
+<div class="">
     <div class="card product-progress-card">
         <div class="card-block">
             <div class="row pp-main">

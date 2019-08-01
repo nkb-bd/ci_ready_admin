@@ -228,21 +228,20 @@
                            <div class="col-lg-4">
                               <div class="page-header-breadcrumb">
                                  <ul class=" breadcrumb breadcrumb-title">
+                                    
                                     <li class="breadcrumb-item">
-                                       <a href="<?=base_url()?>admin"><i class="feather icon-home"></i></a>
-                                    </li>
-                                    <li class="breadcrumb-item">
+                                       <a href="<?=base_url()?>"><i class="feather icon-home"></i></a>
                                        <?php if($this->uri->segment(1)){
                                           $url=$this->uri->segment(1);
                                        ?>
-                                       <a href="<?=base_url().$url?>"><?php echo $url; ?>/</a>
+                                       <a href="<?=base_url().$url?>"> <?php echo $url; ?>/</a>
                                         <?php  }?>
 
 
                                        <?php if(!empty($this->uri->segment(2))){
                                           $url2=$this->uri->segment(2);
                                        ?>
-                                       <a href="<?=base_url().$url2?>"><?php echo $url2; ?>/</a>
+                                       <a href="<?=base_url().$url2?>"> <?php echo $url2; ?>/</a>
                                         <?php }  ?>
 
 

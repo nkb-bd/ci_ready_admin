@@ -19,8 +19,8 @@
         <?php if (in_array('category_view', $this->permissions)): ?>
         <!-- category -->
         <li class="<?php echo (uri_string() == 'admin/category') ? 'active' : ''; ?> ">
-            <a href="<?=base_url()?>/admin/category" class="waves-effect waves-dark">
-            <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+            <a href="<?=base_url()?>admin/category" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="feather icon-list"></i></span>
             <span class="pcoded-mtext">Category </span>
             </a>
         </li>
@@ -55,9 +55,9 @@
 
         <?php if (in_array('acl_view', $this->permissions)): ?>
         <!-- acl    -->
-        <li class="pcoded-hasmenu <?php echo (uri_string() == 'admin/acl/groups') ? 'active' : ''; ?> <?php echo (uri_string() == 'admin/users/add') ? 'active' : ''; ?>">
+        <li class="pcoded-hasmenu <?php echo (uri_string() == 'admin/acl/groups') ||(uri_string() == 'admin/acl/permissions' )||(uri_string() == 'admin/acl' )? 'active' : ''; ?> ">
             <a href="javascript:void(0)" class="waves-effect waves-dark">
-            <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+            <span class="pcoded-micon"><i class="feather icon-lock"></i></span>
             <span class="pcoded-mtext">Role Based Access</span>
             </a>
             <ul class="pcoded-submenu">
@@ -86,7 +86,7 @@
         <!-- settings -->
         <div class="pcoded-navigation-label">Settings</div>
 
-        <li class="pcoded-hasmenu <?php echo (uri_string() == 'admin/settings') ? 'active' : ''; ?> <?php echo (uri_string() == 'admin/users/add') ? 'active' : ''; ?>">
+        <li class="pcoded-hasmenu <?php echo (uri_string() == 'admin/settings') ? 'active' : ''; ?> ">
             <a href="javascript:void(0)" class="waves-effect waves-dark">
             <span class="pcoded-micon"><i class="feather icon-users"></i></span>
             <span class="pcoded-mtext">Site Setting</span>
@@ -104,12 +104,12 @@
                     <a href="<?=base_url()?>admin/trash" class="waves-effect waves-dark">
                      
                       <i class="fa fa-trash"></i>
-                        Trash
+                        Deleted Items
                     </a>
                 </li>
                 <li class="">
                     <a href="<?=base_url()?>admin/dashboard/backup_db">
-                        <i class="fa fa-save"></i>
+                        <i class="fa fa-database"></i>
                         Download DB Backup
                   </a>
                 </li>
@@ -126,7 +126,7 @@
         <li class=" ">
               <a target="_blank" href="<?=base_url()?>admin/dashboard/test_email" class="waves-effect waves-dark">
               <span class="pcoded-micon">
-              <i class="feather icon-trash"></i>
+              <i class="feather icon-mail"></i>
               </span>
               <span class="pcoded-mtext"> Test Email</span>
               </a>
@@ -138,7 +138,7 @@
         <li class=" ">
               <a target="_blank" href="<?=base_url()?>admin/dashboard/demo" class="waves-effect waves-dark">
               <span class="pcoded-micon">
-              <i class="feather icon-trash"></i>
+              <i class="feather icon-zap"></i>
               </span>
               <span class="pcoded-mtext"> Demo forms</span>
               </a>

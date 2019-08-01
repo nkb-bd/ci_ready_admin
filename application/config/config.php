@@ -546,10 +546,10 @@ $config['stripe_secret'] = 'sk_test_Lsop3zIRXoPtjIdzOeJFk11U00b5Q0Ue6q';
 if (SITE_LIVE)
 {
    
-	$config['email_smtp_host'] = 'ssl://mail.gmxtech.uk';
+	$config['email_smtp_host'] = '';
 	$config['email_port']      = 465;
-	$config['email_user']      = 'gmsdev@gmxtech.uk';
-	$config['email_pass']      = 'f*{aZEhdM3V9';
+	$config['email_user']      = 'user name';
+	$config['email_pass']      = 'password';
 
 }
 else 
@@ -562,16 +562,7 @@ else
 }
 
 
-// one at a time
-$config['paypal'] = false;
-$config['stripe'] = true;
-// $config['stripe'] = ($config['paypal'])?false:true;
-
-// mailchimp config
-
-$config['mailchimp_list_id'] = 'e0bf613911';
-$config['mailchimp_api_key'] = '57e2db5e5995e68b93db5c19fb456632-us20';
 
 // google map
-$config['gmap_api_key'] = 'AIzaSyAgtdpYUlacT_ST0_DkfCnGUzucMpKnXfI';
+$config['gmap_api_key'] = '';
 

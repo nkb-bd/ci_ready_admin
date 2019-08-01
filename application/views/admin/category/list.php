@@ -1,21 +1,25 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="panel panel-default card card-body">
+ 
+
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6 text-left">
+                <h3 class="panel-title">Category List</h3>
                 <?php 
   
                     $tbl_field = $this->db->list_fields($tbl_selected);
              
                 ?>
-
-               <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">New Category</button>
-                 
+            </div>
+            <div class="col-md-6 text-right">
+                 <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">New Category</button>
 
             </div>
         </div>
     </div>
+
 
     <table class="table table-striped table-hover-warning">
         <thead>
