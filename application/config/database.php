@@ -17,9 +17,7 @@ $query_builder = TRUE;
 $db['offline'] = array(
 
 	
-	// 	'username' => 'gmstech_lgs_2019',
-	// 'password' => 'gmstech_lgs_2019db',
-	// 'database' => 'gmstech_lgs_2019',
+
 	'username' => 'root',
 	'password' => '',
 	'database' => 'ci_ready_admin',
@@ -48,9 +46,6 @@ $db['default'] = array(
 	'username' => '',
 	'password' => '',
 	'database' => '',
-	// 'username' => 'root',
-	// 'password' => '',
-	// 'database' => 'ci_lgs',
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'dbdriver' => 'mysqli',
