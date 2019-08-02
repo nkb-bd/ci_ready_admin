@@ -37,7 +37,7 @@
     </a>
 </div>
   
-<div class="container text-center">    
+<!-- <div class="container text-center">    
   <h3>Categories</h3><br>
 
   <div class="row">
@@ -51,4 +51,4 @@
     </div>
  
   </div>
-</div><br>
+</div><br> -->
