@@ -1,5 +1,5 @@
 # CI3 ready admin dashboard 
-Ready admin panel with ACL and few other common features.
+Ready admin panel with ACL(user access control),Users , Category , Language and few other common features.
 
 **[VIEW THE DEMO](http://mdakhlasuddin.com/demo/ci-ready-admin)**
 user : demo123
