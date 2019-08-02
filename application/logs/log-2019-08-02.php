@@ -19,3 +19,5 @@ ERROR - 2019-08-02 16:29:52 --> Could not find the language line "users input "
 ERROR - 2019-08-02 16:30:16 --> Could not find the language line "users input "
 ERROR - 2019-08-02 16:44:20 --> Could not find the language line "users input "
 ERROR - 2019-08-02 16:49:31 --> Could not find the language line "users input "
+ERROR - 2019-08-02 17:15:59 --> Could not find the language line "users input "
+ERROR - 2019-08-02 17:32:31 --> Severity: Notice --> Undefined variable: site_link D:\xampp\htdocs\ci_ready_admin\application\views\email\activation_email.php 309

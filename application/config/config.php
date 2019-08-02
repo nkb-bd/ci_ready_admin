@@ -546,10 +546,10 @@ $config['stripe_secret'] = 'sk_test_Lsop3zIRXoPtjIdzOeJFk11U00b5Q0Ue6q';
 if (SITE_LIVE)
 {
    
-	$config['email_smtp_host'] = '';
+	$config['email_smtp_host'] = 'mail.mdakhlasuddin.com';
 	$config['email_port']      = 465;
-	$config['email_user']      = 'user name';
-	$config['email_pass']      = 'password';
+	$config['email_user']      = 'info@mdakhlasuddin.com';
+	$config['email_pass']      = 'li2BM;,^h}N7';
 
 }
 else 
