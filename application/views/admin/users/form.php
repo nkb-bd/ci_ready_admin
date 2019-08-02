@@ -17,9 +17,8 @@
         </div>
         <div class="col-md-9">
             <?php if (!empty($user['profile_img'])) { ?>
-            <?php echo form_label('Profile Image', 'profile_img', array('class'=>'control-label')); ?>
 
-                <img width="220" class="img-resposive" src=" <?php echo base_url() ?>files/profile/<?php echo $user['profile_img'] ?>">
+                <img width="220" class="img-resposive" src=" <?php echo base_url() ?>uploads/profile/<?php echo $user['profile_img'] ?>">
 
             <?php }else{ ?>
                 <img width="220" class="img-resposive" src=" <?php echo base_url() ?>assets/themes/public/img/user.jpg">

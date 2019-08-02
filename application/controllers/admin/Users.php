@@ -322,14 +322,13 @@ class Users extends Admin_Controller {
         if(!empty($files['profile_img']['name'])){
 
 
+               
 
-            $img_name=$this->_do_upload($_FILES['profile_img'],'profile_img',$file_name);
-                    if($img_name==false){
-                        echo 'error#contact adminstrator';
-                        exit();
-                    }
 
-            $postData['profile_img']=$img_name;
+                $img_name=$this->_do_upload($_FILES['profile_img'],'profile_img',$file_name);
+                     
+
+                $postData['profile_img']=$img_name;
                 
             }
 
@@ -566,7 +565,7 @@ class Users extends Admin_Controller {
           $this->session->set_flashdata('notification_type', 'danger');
           $this->session->set_flashdata('notification_icon', 'fa fa-user');
 
-          $this->session->set_flashdata('message', sprintf("Image Upload Failure ".$data));
+          $this->session->set_flashdata('message', sprintf("Image Upload Failure ".$data['error']));
           redirect($this->_redirect_url);
 
     }else{
