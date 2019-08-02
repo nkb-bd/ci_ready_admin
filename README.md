@@ -1,5 +1,5 @@
 # CI3 ready admin dashboard 
-Ready admin panel with few common features.
+Ready admin panel with ACL and few other common features.
 
 **[VIEW THE DEMO](http://mdakhlasuddin.com/demo/ci-ready-admin)**
 user : demo123
@@ -17,7 +17,7 @@ https://github.com/JasonBaier/ci3-fire-starter
 
 Download or clone the repository and paste it to you htdocs or www folder. Then go to http://localhost/ci_ready_admin/install.
 Use your mysql database user name and password and the current url. Database file will start to import. After installation you 
-will be redirecte to the home page.
+will be redirected to the home page.
 
 Super  admin login :
 url : your main url with '/login'
