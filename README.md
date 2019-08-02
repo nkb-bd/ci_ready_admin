@@ -2,8 +2,8 @@
 Ready admin panel with few common features.
 
 **[VIEW THE DEMO](http://mdakhlasuddin.com/demo/ci-ready-admin)**
-user : demo
-pass : demo
+user : demo123
+pass : demo123
 
 
 inspired by 
