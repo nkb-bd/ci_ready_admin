@@ -127,8 +127,8 @@
        
     </div>
 
-      <?php   //not main admin ?>
-      <?php if (  $user['id'] > 1) : ?>
+    <?php   //not main admin ?>
+    <?php if (  $user['id'] > 1) : ?>
 
     <div class="row">
             <?php // username ?>
@@ -162,6 +162,8 @@
                  </select>
             </div>
     </div>
+    <?php elseif($user['id']==1): ?>
+    <input type="hidden" name="user_type" value="1">
     <?php endif; ?>
 
 

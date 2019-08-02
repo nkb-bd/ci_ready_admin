@@ -17,3 +17,5 @@ ERROR - 2019-08-02 16:28:33 --> Severity: Notice --> Undefined index: user_type 
 ERROR - 2019-08-02 16:28:33 --> Could not find the language line "users input "
 ERROR - 2019-08-02 16:29:52 --> Could not find the language line "users input "
 ERROR - 2019-08-02 16:30:16 --> Could not find the language line "users input "
+ERROR - 2019-08-02 16:44:20 --> Could not find the language line "users input "
+ERROR - 2019-08-02 16:49:31 --> Could not find the language line "users input "
